@@ -1,0 +1,56 @@
+<ion-view title="心のRIZAP">
+  <i class="icon ion-loading-c progress-bar-icon" ng-if="loading"></i>
+    
+  <ion-content>
+    <div class="list" ng-hide="loading">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">メールアドレス</span>
+        <input type="text" placeholder="your-cool@email.com" ng-model="data.email">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">パスワード</span>
+        <input type="password" placeholder="" ng-model="data.password">
+      </label>
+    </div>
+
+    <div class="list" ng-hide="loading">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">ニックネーム</span>
+        <input type="text" placeholder="好きなニックネームを入力してください" ng-model="data.nickname">
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">生年月日</span>
+        <input type="date" placeholder="" ng-model="data.birthdate">
+      </label>
+
+      <label class="item item-radio">
+        <input type="radio" name="gender" checked ng-model="data.gender">
+        <div class="item-content">
+          男性
+        </div>
+        <i class="radio-icon ion-checkmark"></i>
+      </label>
+
+      <label class="item item-radio">
+        <input type="radio" name="gender" ng-model="data.gender">
+        <div class="item-content">
+          女性
+        </div>
+        <i class="radio-icon ion-checkmark"></i>
+      </label>
+    </div>
+
+    <div class="list" ng-hide="loading">
+      <li class="item item-checkbox">
+         <label class="checkbox">
+           <input type="checkbox">
+         </label>
+         結果にコミットしますか？
+      </li>
+    </div>
+    <div class="padding" ng-hide="loading">
+      <button class="button button-block button-positive" ng-click="register()" ui-sref="app.trouble">結果にコミットする</button>
+    </div>
+  </ion-content>
+</ion-view>

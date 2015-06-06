@@ -15,7 +15,9 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "com.ionic.keyboard"
+    "com.ionic.keyboard",
+    "com.dooble.audiotoggle",
+    "org.chromium.power"
   ],
   "cordovaPlatforms": [
     "ios",

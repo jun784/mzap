@@ -10,7 +10,8 @@ angular.module('starter', ['ionic',
   'starter.services',
   'starter.directives',
   'config',
-  'btford.socket-io'])
+  'btford.socket-io',
+  'ui.calendar'])
 
 .run(function($ionicPlatform, $state, signaling) {
   $ionicPlatform.ready(function() {
@@ -47,6 +48,36 @@ angular.module('starter', ['ionic',
     url: '/app',
     abstract: true,
     templateUrl: 'templates/app.html'
+  })
+
+  .state('app.register', {
+    url: '/register',
+    controller: 'RegisterCtrl',
+    templateUrl: 'templates/register.html'
+  })
+
+  .state('app.trouble', {
+    url: '/trouble',
+    controller: 'TroubleCtrl',
+    templateUrl: 'templates/trouble.html'
+  })
+
+  .state('app.consultants', {
+    url: '/consultants',
+    controller: 'ConsultantsCtrl',
+    templateUrl: 'templates/consultants.html'
+  })
+
+  .state('app.schedule', {
+    url: '/schedule',
+    controller: 'CalendarCtrl',
+    templateUrl: 'templates/schedule.html'
+  })
+
+  .state('app.offer', {
+    url: '/offer',
+    controller: 'OfferCtrl',
+    templateUrl: 'templates/offer.html'
   })
 
   .state('app.login', {

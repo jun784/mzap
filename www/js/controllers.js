@@ -2,7 +2,69 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope, Chats) {
+.controller('RegisterCtrl', function($scope) {})
+
+.controller('TroubleCtrl', function($scope, $state) {
+  $scope.trouble = function() {
+    $state.go('tab.chats');
+  }
+})
+
+.controller('OfferCtrl', function($scope, $state) {
+  $scope.sessionStart = function() {
+    $state.go('app.login', {
+      contactName: "hoge"
+    })
+  }
+})
+
+.controller('ConsultantsCtrl', function($scope) {})
+
+.controller('CalendarCtrl', function($scope, $state, uiCalendarConfig) {
+  var date = new Date();
+  var d = date.getDate();
+  var m = date.getMonth();
+  var y = date.getFullYear();
+  
+  $scope.events = [
+    // {title: 'All Day Event',start: new Date(y, m, 1)},
+    // {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
+    {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false},
+    {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false},
+    {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
+    {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
+  ];
+
+  $scope.eventSource = {
+    // url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
+    className: 'gcal-event',           // an option!
+    currentTimezone: 'America/Chicago' // an option!
+  };
+
+  $scope.eventSources = [$scope.events];
+
+  $scope.goOffer = function() {
+    $state.go('app.offer');
+  }
+
+  $scope.uiConfig = {
+    calendar: {
+      height: 450,
+      editable: true,
+      header:{
+        left: 'agendaWeek agendaDay',
+        center: 'title',
+        right: 'today prev,next'
+      },
+      // dayClick: $scope.alertEventOnClick,
+      eventClick: $scope.goOffer,
+      eventDrop: $scope.alertOnDrop,
+      eventResize: $scope.alertOnResize
+    }
+  };
+})
+
+.controller('ChatsCtrl', function($scope, Consultants) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -11,14 +73,14 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
   
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
+  $scope.consultants = Consultants.all();
+  $scope.remove = function(consultant) {
+    Consultants.remove(consultant);
   }
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('ChatDetailCtrl', function($scope, $stateParams, Consultants) {
+  $scope.consultant = Consultants.get($stateParams.chatId);
 })
 
 .controller('AccountCtrl', function($scope) {

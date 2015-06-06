@@ -1,0 +1,13 @@
+<ion-view title="いまの悩み">
+  <ion-content class="padding">
+    <div class="list">
+      <label class="item item-input">
+        <textarea placeholder="相談したい内容を大まかに記入してください。"></textarea>
+      </label>
+    </div>
+
+    <div class="padding" ng-hide="loading">
+      <button class="button button-block button-positive" ng-click="trouble()">相談</button>
+    </div>
+  </ion-content>
+</ion-view>
