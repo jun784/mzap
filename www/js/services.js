@@ -47,4 +47,13 @@ angular.module('starter.services', [])
       return null;
     }
   };
+})
+.factory('signaling', function (socketFactory) {
+  var socket = io.connect('https://mzap-sig.herokuapp.com/');
+  
+  var socketFactory = socketFactory({
+    ioSocket: socket
+  });
+
+  return socketFactory;
 });

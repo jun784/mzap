@@ -5,9 +5,14 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 
+  'starter.controllers', 
+  'starter.services',
+  'starter.directives',
+  'config',
+  'btford.socket-io'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $state, signaling) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,6 +24,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       StatusBar.styleLightContent();
     }
   });
+
+  signaling.on('messageReceived', function (name, message) {
+    switch (message.type) {
+      case 'call':
+        if ($state.current.name === 'app.call') { return; }
+        
+        $state.go('app.call', { isCalling: false, contactName: name });
+        break;
+    }
+  });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -28,9 +43,32 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
+    .state('app', {
+    url: '/app',
+    abstract: true,
+    templateUrl: 'templates/app.html'
+  })
+
+  .state('app.login', {
+    url: '/login',
+    controller: 'LoginCtrl',
+    templateUrl: 'templates/login.html'
+  })
+
+  .state('app.contacts', {
+    url: '/contacts',
+    controller: 'ContactsCtrl',
+    templateUrl: 'templates/contacts.html'
+  })
+
+  .state('app.call', {
+    url: '/call/:contactName?isCalling',
+    controller: 'CallCtrl',
+    templateUrl: 'templates/call.html'
+  })
 
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('tab', {
     url: "/tab",
     abstract: true,
     templateUrl: "templates/tabs.html"
@@ -78,6 +116,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/app/login');
 
 });
